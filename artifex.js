@@ -1,6 +1,7 @@
 var config		= require('./config.js').config;
 var watch 		= require('watch');
 var converter	= require('./converter.js');
+var sql		= require('./sql.js');
 var fs 			= require('fs');
 var moment = require('moment');
 
@@ -13,13 +14,40 @@ log.info('ARTIFEX v1.0');
 log.info('by Kenneth Dammyr C 2014');
 log.info('Loading program...');
 
+var dir = config.monitorPath;
 
-watch.createMonitor(config.monitorPath, function (monitor) {
-	log.info('Monitoring ' + config.monitorPath + '...');
-	log.info('****************************************');
-    monitor.on("created", function (f, stat) {
-		if (monitor.files[f] === undefined) {
-			converter.convert(f);
-		}
-    })
-})
+fs.readdir(dir, function (err, list) {
+	// Return the error if something went wrong
+	if (err) {
+		return action(err);
+	}
+
+    // For every file in the list
+    list.forEach(function (file) {
+	    path = dir + "/" + file;
+	    fs.stat(path, function (err, stat) {
+		    // If the file is a directory
+		    if (stat && stat.isDirectory()){
+				log.info("ARTIFEX: Discovered folder: " + file);
+				
+				sql.getCategoryID(file, function (categoryID) {
+					
+					//Do your magic!
+					watch.createMonitor(config.monitorPath + '/' + file, function (monitor) {
+						log.info('ARTIFEX: Monitoring ' + config.monitorPath + '/' + file + '...');
+					    monitor.on("created", function (f, stat) {
+							if (monitor.files[f] === undefined) {
+								converter.convert(f, categoryID);
+							}
+					    })
+					})
+					
+				});
+				
+				
+				
+		     }
+	    });
+    });
+});
+

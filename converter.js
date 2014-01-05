@@ -28,20 +28,22 @@ function fillWith(meta, file) {
 }
 
 // MAIN FUNCTION
-function convert(file) {
+function convert(file, categoryID) {
 	getMetadata(file, function (probeData) {
 		var origFilename = file.split("/").reverse()[0];
-
+		var origFolder = file.split("/").reverse()[1];
+		
 		var metadata = {
 			duration: probeData.format.duration,
 			artist: fillWith(probeData.metadata.artist, origFilename),
 			title: fillWith(probeData.metadata.title, origFilename),
 			album: fillWith(probeData.metadata.album, origFilename),
 			year: fillWith(probeData.metadata.date, origFilename),
-			path: config.successPath + origFilename.split(".")[0] + "." + config.audio.format
+			path: config.successPath + origFolder + "/" +origFilename.split(".")[0] + "." + config.audio.format,
+			category: categoryID
 		}
 		
-		var newPath = config.successPath + origFilename.split(".")[0] + "." + config.audio.format;
+		//var newPath = config.successPath + origFolder + origFilename.split(".")[0] + "." + config.audio.format;
 		var job = sox.transcode(file, metadata.path, config.audio);					
 					
 		job.on('end', function() {
@@ -54,7 +56,7 @@ function convert(file) {
 		
 		job.on('error', function(err) {
 			error.error(err);
-			log.info('CONVERTER: ' + err.stderr);
+			log.error('CONVERTER: ' + err.stderr);
 			clean.failed(file);
 		});
 	

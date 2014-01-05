@@ -1,0 +1,17 @@
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX v1.0
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO by Kenneth Dammyr C 2014
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO Loading program...
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Discovered folder: Jingles
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Discovered folder: Music
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Discovered folder: Tidløse stikk
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Monitoring /Users/kennethdammyr/Sites/artifex/monitor/Jingles...
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Monitoring /Users/kennethdammyr/Sites/artifex/monitor/Music...
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] INFO ARTIFEX: Monitoring /Users/kennethdammyr/Sites/artifex/monitor/Tidløse stikk...
+[Sun Jan 05 2014 22:37:44 GMT+0100 (CET)] INFO CONVERTER: Trying to convert: /Users/kennethdammyr/Sites/artifex/monitor/Jingles/HC og legender - Stikk 3.wav
+[Sun Jan 05 2014 22:37:44 GMT+0100 (CET)] INFO CONVERTER: sox FAIL formats: can't open output file `success/Jingles/HC og legender - Stikk 3.flac': No such file or directory
+
+[Sun Jan 05 2014 22:37:44 GMT+0100 (CET)] INFO CLEAN: Moved to: failed/HC og legender - Stikk 3.wav
+[Sun Jan 05 2014 22:39:04 GMT+0100 (CET)] INFO CONVERTER: Trying to convert: /Users/kennethdammyr/Sites/artifex/monitor/Jingles/HC og legender - Stikk 3.wav
+[Sun Jan 05 2014 22:39:14 GMT+0100 (CET)] INFO CONVERTER: /Users/kennethdammyr/Sites/artifex/monitor/Jingles/HC og legender - Stikk 3.wav was done transcoding
+[Sun Jan 05 2014 22:39:14 GMT+0100 (CET)] INFO SQL: success/Jingles/HC og legender - Stikk 3.flac was inserted into database with category 5!
+[Sun Jan 05 2014 22:39:14 GMT+0100 (CET)] INFO CLEAN: Deleted file: /Users/kennethdammyr/Sites/artifex/monitor/Jingles/HC og legender - Stikk 3.wav

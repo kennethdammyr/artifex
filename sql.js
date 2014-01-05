@@ -20,7 +20,8 @@ function insert(metadata, callback) {
 		artist: metadata.artist, 
 		title: metadata.title, 
 		album: metadata.album, 
-		year: metadata.year
+		year: metadata.year,
+		song_type: metadata.category
 	};
 	
 	var connection = mysql.createConnection(config.db);
@@ -29,7 +30,7 @@ function insert(metadata, callback) {
 		if(err){
 			log.info(err);
 		} else {
-			log.info("SQL: " + metadata.path + " was inserted into database!");
+			log.info("SQL: " + metadata.path + " was inserted into database with category "+metadata.category+"!");
 			callback();	
 		}
 		
@@ -39,4 +40,27 @@ function insert(metadata, callback) {
 	
 }
 
+function getCategoryID(foldername, callback) {
+	var connection = mysql.createConnection(config.db);
+	
+	connection.query("SELECT ID FROM category WHERE name=\'"+foldername+"\'", function(err, result) {
+		if(err){
+			error.error(err);
+		} else {
+			if (result[0] != null) {
+				callback(result[0].ID);	
+				log.info("SQL: Foldername " + foldername + " equals to categoryID "+ result[0].ID);
+			} else {
+				callback(0);	
+				error.error("SQL: Couldn't find categoryID for foldername " + foldername);
+			}
+			
+		}
+		
+	});
+	
+	connection.end();
+}
+
 exports.insert = insert;
+exports.getCategoryID = getCategoryID;

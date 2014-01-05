@@ -1,0 +1,19 @@
+[Sun Jan 05 2014 22:37:29 GMT+0100 (CET)] ERROR SQL: Couldn't find categoryID for foldername Tidløse stikk
+[Sun Jan 05 2014 22:37:44 GMT+0100 (CET)] ERROR { [Error: sox returned nonzero exit code: 2]
+  code: 2,
+  stdout: '',
+  stderr: 'sox FAIL formats: can\'t open output file `success/Jingles/HC og legender - Stikk 3.flac\': No such file or directory\n',
+  args: 
+   [ '--magic',
+     '--show-progress',
+     '--norm=-12',
+     '/Users/kennethdammyr/Sites/artifex/monitor/Jingles/HC og legender - Stikk 3.wav',
+     '-r',
+     44100,
+     '-t',
+     'flac',
+     '-C',
+     8,
+     '-c',
+     2,
+     'success/Jingles/HC og legender - Stikk 3.flac' ] }
