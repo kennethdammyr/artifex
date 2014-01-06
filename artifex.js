@@ -1,9 +1,10 @@
 var config		= require('./config.js').config;
 var watch 		= require('watch');
 var converter	= require('./converter.js');
-var sql		= require('./sql.js');
+var sql			= require('./sql.js');
 var fs 			= require('fs');
-var moment = require('moment');
+var moment 		= require('moment');
+var clean		= require('./clean.js');
 
 var Log 		= require('log');
 var log 		= new Log('info', fs.createWriteStream(config.logPath + '/info ' + moment().format("YYYY-MM-DD") + '.log', {flags: 'w'}));
@@ -37,14 +38,19 @@ fs.readdir(dir, function (err, list) {
 						log.info('ARTIFEX: Monitoring ' + config.monitorPath + '/' + file + '...');
 					    monitor.on("created", function (f, stat) {
 							if (monitor.files[f] === undefined) {
-								converter.convert(f, categoryID);
+								log.info('ARTIFEX: Found file: ' + f);
+								var ftype = f.split(".").reverse()[0];
+								if(config.allowedFiles.indexOf(ftype)!=-1) { // Filter out other files
+									converter.convert(f, categoryID);
+								} else {
+									clean.failed(f);
+								}
+
 							}
 					    })
 					})
 					
 				});
-				
-				
 				
 		     }
 	    });

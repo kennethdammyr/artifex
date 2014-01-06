@@ -15,7 +15,8 @@ var config = {
 		channelCount: 2,
 		level: '--norm=-12',
 		compressionQuality: 8, 
-	}
+	},
+	allowedFiles: ['flac','mp3','wav','aac','aif','aiff']
 }
 
 exports.config = config;

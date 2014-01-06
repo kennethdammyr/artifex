@@ -28,7 +28,7 @@ function insert(metadata, callback) {
 	
 	connection.query('INSERT INTO songs SET ?', post, function(err, result) {
 		if(err){
-			log.info(err);
+			log.info("SQL: " + err);
 		} else {
 			log.info("SQL: " + metadata.path + " was inserted into database with category "+metadata.category+"!");
 			callback();	

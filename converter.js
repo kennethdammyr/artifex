@@ -14,7 +14,7 @@ var error 		= new Log('error', fs.createWriteStream(config.logPath + '/error ' +
 function getMetadata(file, callback) {	
 
 	probe(file, function(err, probeData) {
-		callback(probeData);
+			callback(probeData);
 	});
 	
 }
@@ -30,38 +30,39 @@ function fillWith(meta, file) {
 // MAIN FUNCTION
 function convert(file, categoryID) {
 	getMetadata(file, function (probeData) {
-		var origFilename = file.split("/").reverse()[0];
-		var origFolder = file.split("/").reverse()[1];
-		
-		var metadata = {
-			duration: probeData.format.duration,
-			artist: fillWith(probeData.metadata.artist, origFilename),
-			title: fillWith(probeData.metadata.title, origFilename),
-			album: fillWith(probeData.metadata.album, origFilename),
-			year: fillWith(probeData.metadata.date, origFilename),
-			path: config.successPath + origFolder + "/" +origFilename.split(".")[0] + "." + config.audio.format,
-			category: categoryID
-		}
-		
-		//var newPath = config.successPath + origFolder + origFilename.split(".")[0] + "." + config.audio.format;
-		var job = sox.transcode(file, metadata.path, config.audio);					
-					
-		job.on('end', function() {
-			log.info("CONVERTER: " + file + " was done transcoding");
-			sql.insert(metadata, function () {
-				clean.success(file);
-			})
+
+			var origFilename = file.split("/").reverse()[0];
+			var origFolder = file.split("/").reverse()[1];
 			
-		});
+			var metadata = {
+				duration: probeData.format.duration,
+				artist: fillWith(probeData.metadata.artist, origFilename),
+				title: fillWith(probeData.metadata.title, origFilename),
+				album: fillWith(probeData.metadata.album, origFilename),
+				year: fillWith(probeData.metadata.date, origFilename),
+				path: config.successPath + origFolder + "/" +origFilename.split(".")[0] + "." + config.audio.format,
+				category: categoryID
+			}
+			
+			//var newPath = config.successPath + origFolder + origFilename.split(".")[0] + "." + config.audio.format;
+			var job = sox.transcode(file, metadata.path, config.audio);					
+						
+			job.on('end', function() {
+				log.info("CONVERTER: " + file + " was done transcoding");
+				sql.insert(metadata, function () {
+					clean.success(file);
+				})
+				
+			});
+			
+			job.on('error', function(err) {
+				error.error(err);
+				log.error('CONVERTER: ' + err.stderr);
+				clean.failed(file);
+			});
 		
-		job.on('error', function(err) {
-			error.error(err);
-			log.error('CONVERTER: ' + err.stderr);
-			clean.failed(file);
-		});
-	
-		job.start();
-		log.info('CONVERTER: Trying to convert: ' + file)
+			job.start();
+			log.info('CONVERTER: Trying to convert: ' + file)
 	});
 }
 
