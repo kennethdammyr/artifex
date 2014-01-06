@@ -1,0 +1,26 @@
+{
+  "name": "artifex",
+  "preferGlobal": true,
+  "version": "1.0",
+  "author": "Kenneth Dammyr <kennethdammyr@gmail.com>",
+  "description": "An application that monitors folders, transcodes and inserts metadata into SQL"
+  ],
+  "bin": {
+    "artifex": "./artifex"
+  },
+  "main": "./artifex",
+  "dependencies"	: {
+    "watch"			:  "0.8.x",
+    "fs" 			:  "*",
+    "moment" 		:  "0.2.x",
+    "log"    		:  "1.4.x",
+    "node-ffprobe"	:  "1.2.x",
+  },
+  "bundledDependencies": [
+    "sox",
+  ],  
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.9.1"
+  }
+}
