@@ -20,7 +20,8 @@ var dir = config.monitorPath;
 fs.readdir(dir, function (err, list) {
 	// Return the error if something went wrong
 	if (err) {
-		return action(err);
+		log.error("ARTIFEX: Could not load directories, see error-log");
+		error.error(err);
 	}
 
     // For every file in the list

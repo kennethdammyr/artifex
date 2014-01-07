@@ -43,6 +43,12 @@ function insert(metadata, callback) {
 function getCategoryID(foldername, callback) {
 	var connection = mysql.createConnection(config.db);
 	
+	connection.connect(function(err) {
+		if (err) {
+			log.error("SQL: Can't connect to MySQL-database.");
+		}
+	});
+	
 	connection.query("SELECT ID FROM category WHERE name=\'"+foldername+"\'", function(err, result) {
 		if(err){
 			error.error(err);
