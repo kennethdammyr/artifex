@@ -33,7 +33,7 @@ fs.readdir(dir, function (err, list) {
 				log.info("ARTIFEX: Discovered folder: " + file);
 				
 				sql.getCategoryID(file, function (categoryID) {
-					
+
 					//Do your magic!
 					watch.createMonitor(config.monitorPath + file, function (monitor) {
 						log.info('ARTIFEX: Monitoring ' + config.monitorPath + file + '...');
