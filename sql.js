@@ -21,7 +21,7 @@ function insert(metadata, callback) {
 		title: metadata.title, 
 		album: metadata.album, 
 		year: metadata.year,
-		song_type: metadata.category
+		id_subcat: metadata.category
 	};
 	
 	var connection = mysql.createConnection(config.db);
@@ -49,16 +49,16 @@ function getCategoryID(foldername, callback) {
 		}
 	});
 	
-	connection.query("SELECT ID FROM category WHERE name=\'"+foldername+"\'", function(err, result) {
+	connection.query("SELECT ID FROM subcategory WHERE name=\'"+foldername+"\'", function(err, result) {
 		if(err){
 			error.error(err);
 		} else {
 			if (result[0] != null) {
 				callback(result[0].ID);	
-				log.info("SQL: Foldername " + foldername + " equals to categoryID "+ result[0].ID);
+				log.info("SQL: Foldername " + foldername + " equals to subcategoryID "+ result[0].ID);
 			} else {
 				callback(0);	
-				error.error("SQL: Couldn't find categoryID for foldername " + foldername);
+				error.error("SQL: Couldn't find subcategoryID for foldername " + foldername);
 			}
 			
 		}

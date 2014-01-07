@@ -35,8 +35,8 @@ fs.readdir(dir, function (err, list) {
 				sql.getCategoryID(file, function (categoryID) {
 					
 					//Do your magic!
-					watch.createMonitor(config.monitorPath + '/' + file, function (monitor) {
-						log.info('ARTIFEX: Monitoring ' + config.monitorPath + '/' + file + '...');
+					watch.createMonitor(config.monitorPath + file, function (monitor) {
+						log.info('ARTIFEX: Monitoring ' + config.monitorPath + file + '...');
 					    monitor.on("created", function (f, stat) {
 							if (monitor.files[f] === undefined) {
 								log.info('ARTIFEX: Found file: ' + f);

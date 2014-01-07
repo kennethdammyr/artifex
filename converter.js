@@ -31,8 +31,8 @@ function fillWith(meta, file) {
 function convert(file, categoryID) {
 	getMetadata(file, function (probeData) {
 
-			var origFilename = file.split("/").reverse()[0];
-			var origFolder = file.split("/").reverse()[1];
+			var origFilename = file.split("\\").reverse()[0];
+			var origFolder = file.split("\\").reverse()[1];
 			
 			var metadata = {
 				duration: probeData.format.duration,

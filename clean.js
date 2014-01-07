@@ -10,7 +10,7 @@ var error 		= new Log('error', fs.createWriteStream(config.logPath + '/error ' +
 // MAIN FUNCTIONS
 function failed(file) {
 	
-	var newPath = config.failedPath + file.split("/").reverse()[0];
+	var newPath = config.failedPath + file.split("\\").reverse()[0];
 	
 	fs.rename(file, newPath, function () {
 		log.info("CLEAN: Moved to: "+ newPath);
